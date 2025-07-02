@@ -149,7 +149,7 @@ def get_conditional_gaussian_approximation(
 
     # Currently x is passed both as the query point for f(x, args) = logp(x | y, params) AND as an initial guess for x0. This may cause issues if the query point is
     # far from the mode x0 or in a neighbourhood which results in poor convergence.
-    return pytensor.function(args, [x0, conditional_gaussian_approx])
+    return pytensor.function(args, pm.MvNormal(mu=x0, tau=Q-hess))
 
 
 def laplace_draws_to_inferencedata(
